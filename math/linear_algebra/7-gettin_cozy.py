@@ -12,11 +12,13 @@ def cat_matrices2D(mat1, mat2, axis=0):
     i = 0
     j = 0
     if axis == 0:
-        return mat1 + mat2
+        new_mat = mat1 + mat2
+        return new_mat
     if axis == 1:
         for i in range(len(mat2)):
             for j in range(len(mat2[0])):
                 mat1[i].append(mat2[i][j])
                 j += 1
             i += 1
-        return mat1
+        new_mat = mat1
+        return new_mat
