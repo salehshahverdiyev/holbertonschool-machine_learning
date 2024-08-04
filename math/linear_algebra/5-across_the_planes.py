@@ -14,6 +14,8 @@ def add_matrices2D(mat1, mat2):
     empty = []
     i = 0
     j = 0
+    if len(m1) == 0 and len(m2) == 0:
+        return [[]]
     if len(m1[0]) > 0 and len(m2[0]) > 0:
         if isinstance(m1[0], list) and isinstance(m2[0], list):
             if isinstance(m1[0][0], int) or isinstance(m1[0][0], float):
