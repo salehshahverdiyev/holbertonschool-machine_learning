@@ -21,4 +21,4 @@ def add_arrays(arr1, arr2):
                 elif len(arr1) != len(arr2):
                     return None
     else:
-        return None
+        return []
