@@ -14,7 +14,7 @@ def change_scale():
     r = np.log(0.5)
     t = 5730
     y = np.exp((r / t) * x)
-    plt.figure(figsize=(6.4, 4.8), dpi=100)
+    plt.figure(figsize=(6.4, 4.8))
     plt.plot(x, y, 'b-')
     plt.xlabel('Time (years)')
     plt.ylabel('Fraction Remaining')
