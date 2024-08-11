@@ -19,7 +19,7 @@ def bars():
     people = ['Farrah', 'Fred', 'Felicia']
 
     # colors
-    colors = ['red', 'yellow', 'orange', '#ffe5b4']
+    colors = ['red', 'yellow', '#ff8000', '#ffe5b4']
 
     # stacked bar graph
     plt.bar(people, fruit[0], label=labels[0], color=colors[0], width=0.5)
