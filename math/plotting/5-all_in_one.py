@@ -33,7 +33,7 @@ def all_in_one():
     np.random.seed(5)
     student_grades = np.random.normal(68, 15, 50)
 
-    plt.figure(figsize=(12, 8))  # figure size
+    plt.figure()  # figure size
     plt.suptitle("All in One", fontsize='x-small')  # Main title
 
     # Plot 1 (Line Graph)
