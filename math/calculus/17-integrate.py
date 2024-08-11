@@ -23,8 +23,8 @@ def poly_integral(poly, C=0):
             integral.append(int(integral_coeff))
         else:
             integral.append(integral_coeff)
-    while len(integral) > 1 and integral[-1] == 0:
-        integral.pop()
     if len(integral) == 1 and integral[0] == 0:
         return None
+    while len(integral) > 1 and integral[-1] == 0:
+        integral.pop()
     return integral
