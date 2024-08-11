@@ -15,7 +15,7 @@ def bars():
     plt.figure(figsize=(6.4, 4.8))
 
     # labels
-    labels = ['Apples', 'Bananas', 'Oranges', 'Peaches']
+    labels = ['apples', 'bananas', 'oranges', 'peaches']
     people = ['Farrah', 'Fred', 'Felicia']
 
     # colors
