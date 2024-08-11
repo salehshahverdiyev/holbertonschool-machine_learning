@@ -21,4 +21,3 @@ def change_scale():
     plt.yscale('log')
     plt.xlim(0, 28650)
     plt.show()
-
