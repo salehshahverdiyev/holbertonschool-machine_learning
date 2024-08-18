@@ -70,6 +70,9 @@ class Leaf(Node):
         self.depth = depth
 
     def max_depth_below(self):
+        '''
+            Function Documentation
+        '''
         return self.depth
 
     def count_nodes_below(self, only_leaves=False):
