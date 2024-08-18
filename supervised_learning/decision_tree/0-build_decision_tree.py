@@ -23,23 +23,17 @@ class Node:
         self.sub_population = None
         self.depth = depth
 
-        # Update the depth of the children if they exist
-        if self.left_child:
-            self.left_child.depth = self.depth + 1
-        if self.right_child:
-            self.right_child.depth = self.depth + 1
-
     def max_depth_below(self):
         '''
             Function Documentation
         '''
-        max_depth_left = 0
-        max_depth_right = 0
-        if self.left_child:
-            max_depth_left = self.left_child.max_depth_below()
-        if self.right_child:
-            max_depth_right = self.right_child.max_depth_below()
-        return max(max_depth_left, max_depth_right) + 1
+        if self.left_child is None and self.right_child is None:
+            return self.depth
+        left_depth = self.left_child.max_depth_below()
+        if self.left_child else self.depth
+        right_depth = self.right_child.max_depth_below()
+        if self.right_child else self.depth
+        return max(left_depth, right_depth)
 
 
 class Leaf(Node):
