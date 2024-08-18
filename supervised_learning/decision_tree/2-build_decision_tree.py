@@ -12,8 +12,8 @@ def left_child_add_prefix(text):
     '''
     lines = text.split("\n")
     new_text = "    +--" + lines[0] + "\n"
-    for line in lines[1:]:
-        new_text += "    |  " + line + "\n"
+    for x in lines[1:]:
+        new_text += ("    |  "+x) + "\n"
     return new_text
 
 
@@ -23,8 +23,8 @@ def right_child_add_prefix(text):
     '''
     lines = text.split("\n")
     new_text = "    +--" + lines[0] + "\n"
-    for line in lines[1:]:
-        new_text += "       " + line + "\n"
+    for x in lines[1:]:
+        new_text += ("       " + x) + "\n"
     return new_text
 
 
@@ -32,11 +32,11 @@ class Node:
     '''
         Class Documentation
     '''
-    def __init__(self, feature=None, threshold=None, left_child=None,
-                 right_child=None, is_root=False, depth=0):
+    def __init__(self, feature=None, threshold=None,
+                 left_child=None, right_child=None, is_root=False, depth=0):
         '''
-            Function Documentation
-        '''
+        Function Documentation
+    '''
         self.feature = feature
         self.threshold = threshold
         self.left_child = left_child
@@ -50,43 +50,56 @@ class Node:
         '''
             Function Documentation
         '''
-        max_depth_left = 0
-        max_depth_right = 0
+        if self.is_leaf:
+            return self.depth
         if self.left_child:
-            max_depth_left = self.left_child.max_depth_below()
+            left_depth = self.left_child.max_depth_below()
+        else:
+            left_depth = self.depth
         if self.right_child:
-            max_depth_right = self.right_child.max_depth_below()
-        return max(max_depth_left, max_depth_right) + 1
+            right_depth = self.right_child.max_depth_below()
+        else:
+            right_depth = self.depth
+        return max(left_depth, right_depth)
 
     def count_nodes_below(self, only_leaves=False):
         '''
             Function Documentation
         '''
-        if only_leaves:
-            if self.is_leaf:
-                return 1
-            count_left = (self.left_child.count_nodes_below(only_leaves)
-                          if self.left_child else 0)
-            count_right = (self.right_child.count_nodes_below(only_leaves)
-                           if self.right_child else 0)
-            return count_left + count_right
+        if self.is_leaf:
+            return 1
+        if self.left_child:
+            left_count = self.left_child.count_nodes_below(only_leaves)
         else:
-            count_left = (self.left_child.count_nodes_below(only_leaves)
-                          if self.left_child else 0)
-            count_right = (self.right_child.count_nodes_below(only_leaves)
-                           if self.right_child else 0)
-            return 1 + count_left + count_right
+            left_count = 0
+        if self.right_child:
+            right_count = self.right_child.count_nodes_below(only_leaves)
+        else:
+            right_count = 0
+        if only_leaves:
+            return left_count + right_count
+        return 1 + left_count + right_count
 
     def __str__(self):
         '''
             Function Documentation
         '''
-        text = f"[feature={self.feature}, threshold={self.threshold}]"
+        if self.is_root:
+            Type = "root "
+        elif self.is_leaf:
+            return f"-> leaf [value={self.value}]"
+        else:
+            Type = "-> node "
         if self.left_child:
-            text += "\n" + left_child_add_prefix(str(self.left_child))
+            left_str = left_child_add_prefix(str(self.left_child))
+        else:
+            left_str = ""
         if self.right_child:
-            text += "\n" + right_child_add_prefix(str(self.right_child))
-        return text
+            right_str = right_child_add_prefix(str(self.right_child))
+        else:
+            right_str = ""
+        return f"{Type}[feature={self.feature}, threshold=\
+{self.threshold}]\n{left_str}{right_str}".rstrip()
 
 
 class Leaf(Node):
@@ -112,19 +125,20 @@ class Leaf(Node):
         '''
             Function Documentation
         '''
-        return 1 if not only_leaves or self.is_leaf else 0
+        return 1
 
     def __str__(self):
         '''
             Function Documentation
         '''
-        return f"-> leaf [value={self.value}]"
+        return (f"-> leaf [value={self.value}]")
 
 
-class Decision_Tree:
+class Decision_Tree():
     '''
         Class Documentation
     '''
+
     def __init__(self, max_depth=10, min_pop=1, seed=0,
                  split_criterion="random", root=None):
         '''
@@ -156,6 +170,6 @@ class Decision_Tree:
 
     def __str__(self):
         '''
-            Function Documentation
+        Function Documentation
         '''
-        return str(self.root)
+        return self.root.__str__() + "\n"
