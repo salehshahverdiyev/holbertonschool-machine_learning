@@ -79,4 +79,4 @@ class Decision_Tree():
         '''
             Function Documentation
         '''
-        return self.root.max_depth_below()
+        return self.root.depth
