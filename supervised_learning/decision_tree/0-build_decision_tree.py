@@ -2,7 +2,6 @@
 '''
     Script Documentation
 '''
-
 import numpy as np
 
 
@@ -23,6 +22,12 @@ class Node:
         self.is_root = is_root
         self.sub_population = None
         self.depth = depth
+
+        # Update the depth of the children if they exist
+        if self.left_child:
+            self.left_child.depth = self.depth + 1
+        if self.right_child:
+            self.right_child.depth = self.depth + 1
 
     def max_depth_below(self):
         '''
@@ -51,6 +56,9 @@ class Leaf(Node):
         self.depth = depth
 
     def max_depth_below(self):
+        '''
+            Function Documentation
+        '''
         return self.depth
 
 
