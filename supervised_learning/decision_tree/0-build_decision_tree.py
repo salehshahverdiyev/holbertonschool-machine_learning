@@ -2,6 +2,7 @@
 '''
     Script Documentation
 '''
+
 import numpy as np
 
 
@@ -27,11 +28,13 @@ class Node:
         '''
             Function Documentation
         '''
-        if self.left_child is None and self.right_child is None:
-            return self.depth
-        left_depth = self.left_child.max_depth_below() if self.left_child else self.depth
-        right_depth = self.right_child.max_depth_below() if self.right_child else self.depth
-        return max(left_depth, right_depth)
+        max_depth_left = 0
+        max_depth_right = 0
+        if self.left_child:
+            max_depth_left = self.left_child.max_depth_below()
+        if self.right_child:
+            max_depth_right = self.right_child.max_depth_below()
+        return max(max_depth_left, max_depth_right) + 1
 
 
 class Leaf(Node):
@@ -48,9 +51,6 @@ class Leaf(Node):
         self.depth = depth
 
     def max_depth_below(self):
-        '''
-            Function Documentation
-        '''
         return self.depth
 
 
@@ -79,4 +79,4 @@ class Decision_Tree():
         '''
             Function Documentation
         '''
-        return self.root.depth
+        return self.root.max_depth_below()
