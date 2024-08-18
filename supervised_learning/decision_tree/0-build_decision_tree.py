@@ -10,8 +10,8 @@ class Node:
     '''
         Class Documentation
     '''
-    def __init__(self, feature=None, threshold=None, left_child=None,
-                 right_child=None, is_root=False, depth=0):
+    def __init__(self, feature=None, threshold=None,
+                 left_child=None, right_child=None, is_root=False, depth=0):
         '''
             Function Documentation
         '''
@@ -28,13 +28,17 @@ class Node:
         '''
             Function Documentation
         '''
-        max_depth_left = 0
-        max_depth_right = 0
+        if self.is_leaf:
+            return self.depth
         if self.left_child:
-            max_depth_left = self.left_child.max_depth_below()
+            left_depth = self.left_child.max_depth_below()
+        else:
+            left_depth = self.depth
         if self.right_child:
-            max_depth_right = self.right_child.max_depth_below()
-        return max(max_depth_left, max_depth_right) + 1
+            right_depth = self.right_child.max_depth_below()
+        else:
+            right_depth = self.depth
+        return max(left_depth, right_depth)
 
 
 class Leaf(Node):
