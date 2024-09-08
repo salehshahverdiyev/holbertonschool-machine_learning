@@ -4,7 +4,6 @@
 '''
 import tensorflow.compat.v1 as tf
 tf.disable_eager_execution()
-
 create_layer = __import__('1-create_layer').create_layer
 
 
