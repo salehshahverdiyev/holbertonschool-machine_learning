@@ -1,58 +1,47 @@
 #!/usr/bin/env python3
-'''
-    Script Documentation
-'''
+""" Task 6: 6. Train """
 import tensorflow.compat.v1 as tf
 tf.disable_eager_execution()
-create_placeholders = __import__('0-create_placeholders').create_placeholders
-forward_prop = __import__('2-forward_prop').forward_prop
 calculate_accuracy = __import__('3-calculate_accuracy').calculate_accuracy
 calculate_loss = __import__('4-calculate_loss').calculate_loss
+create_placeholders = __import__('0-create_placeholders').create_placeholders
 create_train_op = __import__('5-create_train_op').create_train_op
+forward_prop = __import__('2-forward_prop').forward_prop
 
 
-def train(X_train, Y_train, X_valid, Y_valid, layer_sizes, activations,
-          alpha, iterations, save_path="/tmp/model.ckpt"):
-    '''
-        builds, trains, and saves a neural network classifier:
-        X_train is a numpy.ndarray containing the training input data
-        Y_train is a numpy.ndarray containing the training labels
-        X_valid is a numpy.ndarray containing the validation input data
-        Y_valid is a numpy.ndarray containing the validation labels
-        layer_sizes is a list containing the number of nodes
-            in each layer of the network
-        activations is a list containing the activation functions
-            for each layer of the network
-        alpha is the learning rate
-        iterations is the number of iterations to train over
-        save_path designates where to save the model
-        Add the following to the graph's collection
-        placeholders x and y
-        tensors y_pred, loss, and accuracy
-        operation train_op
-        After every 100 iterations, the 0th iteration, and
-            iterations iterations, print the following:
-        After {i} iterations: where i is the iteration
-        \tTraining Cost: {cost} where {cost} is the training cost
-        \tTraining Accuracy: {accuracy} where {accuracy}
-            is the training accuracy
-        \tValidation Cost: {cost} where {cost} is the validation cost
-        \tValidation Accuracy: {accuracy} where {accuracy}
-            is the validation accuracy
-        Reminder: the 0th iteration represents the model
-            before any training has occurred
-        After training has completed, save the model to save_path
-        You may use the following imports:
-        calculate_accuracy =
-            __import__('3-calculate_accuracy').calculate_accuracy
-        calculate_loss = __import__('4-calculate_loss').calculate_loss
-        create_placeholders =
-            __import__('0-create_placeholders').create_placeholders
-        create_train_op = __import__('5-create_train_op').create_train_op
-        forward_prop = __import__('2-forward_prop').forward_prop
-        You are not allowed to use tf.saved_model
-        Returns: the path where the model was saved
-    '''
+def train(X_train, Y_train, X_valid, Y_valid, layer_sizes,
+          activations, alpha, iterations, save_path="/tmp/model.ckpt"):
+    """
+    Builds, trains, and saves a neural network classifier.
+
+    Parameters:
+    X_train : numpy.ndarray
+        Training input data with shape [num_samples, num_features].
+    Y_train : numpy.ndarray
+        Training labels with shape [num_samples, num_classes].
+        Labels should be one-hot encoded.
+    X_valid : numpy.ndarray
+        Validation input data with shape [num_samples, num_features].
+    Y_valid : numpy.ndarray
+        Validation labels with shape [num_samples, num_classes].
+        Labels should be one-hot encoded.
+    layer_sizes : list of int
+        A list where each element represents the number of neurons in a layer.
+    activations : list of callable
+        A list where each element is an activation function to be
+        applied to each layer.
+    alpha : float
+        The learning rate for the gradient descent optimizer.
+    iterations : int
+        The number of iterations (epochs) to train the network.
+    save_path : str, optional
+        Path to save the trained model checkpoint.
+        Default is "/tmp/model.ckpt".
+
+    Returns:
+    str
+        The path where the trained model is saved.
+    """
     x, y = create_placeholders(X_train.shape[1], Y_train.shape[1])
     tf.add_to_collection('x', x)
     tf.add_to_collection('y', y)
