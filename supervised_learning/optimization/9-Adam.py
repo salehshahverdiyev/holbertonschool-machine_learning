@@ -24,5 +24,5 @@ def create_RMSProp_op(alpha, beta2, epsilon):
     s = beta2 * s + (1 - beta2) * np.square(grad)
     v_new = v / (1 - beta1 ** t)
     s_new = s / (1 - beta2 ** t)
-    var = var - (alpha / (np.sqrt(s_new) + epsilon)) * v_new
+    var = var - alpha * (v_new / ((s_new ** 0.5) + epsilon))
     return var, v, s
