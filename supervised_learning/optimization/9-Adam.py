@@ -5,7 +5,7 @@
 import numpy as np
 
 
-def create_RMSProp_op(alpha, beta2, epsilon):
+def update_variables_Adam(alpha, beta1, beta2, epsilon, var, grad, v, s, t):
     '''
         updates a variable in place using the Adam optimization algorithm:
         alpha is the learning rate
@@ -21,8 +21,8 @@ def create_RMSProp_op(alpha, beta2, epsilon):
             the new first moment, and the new second moment, respectively
     '''
     v = beta1 * v + (1 - beta1) * grad
-    s = beta2 * s + (1 - beta2) * grad * grad
+    s = beta2 * s + (1 - beta2) * np.square(grad)
     v_new = v / (1 - beta1 ** t)
     s_new = s / (1 - beta2 ** t)
-    var = var - alpha * (v_new / ((s_new ** 0.5) + epsilon))
+    var = var - (alpha / (np.sqrt(s_new) + epsilon)) * v_new
     return var, v, s
