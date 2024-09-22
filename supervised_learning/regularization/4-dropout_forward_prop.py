@@ -23,14 +23,12 @@ def dropout_forward_prop(X, weights, L, keep_prob):
     '''
     cache = {}
     cache['A0'] = X
-
     for la in range(1, L + 1):
         keyA = "A{}".format(la)
         keyA_p = "A{}".format(la - 1)
         keyD = "D{}".format(la)
         keyW = "W{}".format(la)
         keyb = "b{}".format(la)
-
         Z = np.matmul(weights[keyW], cache[keyA_p]) + weights[keyb]
 
         if la != L:
@@ -42,9 +40,7 @@ def dropout_forward_prop(X, weights, L, keep_prob):
             A /= keep_prob
             cache[keyA] = A
         else:
-            # Softmax
             t = np.exp(Z)
             A = t / np.sum(t, axis=0, keepdims=True)
             cache[keyA] = A
-
     return cache
