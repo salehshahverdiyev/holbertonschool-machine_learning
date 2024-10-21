@@ -1,2 +1,2 @@
 # holbertonschool-machine_learning
-Machine Learning Speciliziation
+Machine Learning Speciliziation.
